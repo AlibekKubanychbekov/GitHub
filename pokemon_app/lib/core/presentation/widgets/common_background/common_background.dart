@@ -10,9 +10,9 @@ class CommonBackground extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          color: AppColors.bgColor,
+          color: Colors.transparent,
         ),
-        const CommonBackgroundCircle(color: AppColors.color41AAF7),
+        const CommonBackgroundCircle(color: AppColors.colorBg),
         const Positioned(
             top: -100,
             right: 0,

@@ -19,7 +19,10 @@ class AllPokemonsBloc
       emit(CommonBlocState(status: StateStatus.loading));
       try {
         final result = await _fetchAllPokemonsUsecase.execute();
-        emit(CommonBlocState(status: StateStatus.success, model: result));
+        emit(CommonBlocState(
+          status: StateStatus.success,
+          model: result,
+        ));
       } catch (e) {
         emit(
           CommonBlocState(

@@ -8,12 +8,12 @@ import 'package:pocemon_app/modules/all_pokemons/domain/repository/all_pokemons_
 import 'package:pocemon_app/modules/all_pokemons/presentation/all_pokemons_screen.dart';
 
 class WelcomeButtons extends StatelessWidget {
-  const WelcomeButtons(ElevatedButton elevatedButton, {super.key});
+  const WelcomeButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.height * 0.1,
+      height: context.height * 0.11,
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

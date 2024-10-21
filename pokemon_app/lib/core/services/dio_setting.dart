@@ -9,7 +9,7 @@ class DioSetting {
             baseUrl: 'https://pokeapi.co/api/v2/',
             connectTimeout: const Duration(milliseconds: 10000),
             sendTimeout: const Duration(milliseconds: 10000),
-            receiveTimeout: const Duration(milliseconds: 10000),
+            receiveTimeout: const Duration(milliseconds: 30000),
           ),
         ) {
     _addInterceptors();

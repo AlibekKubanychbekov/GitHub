@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pocemon_app/core/assets/app_images.dart';
 import 'package:pocemon_app/core/enums/state_status.dart';
@@ -11,7 +10,10 @@ import 'package:pocemon_app/modules/all_pokemons/domain/entity/all_pokemons_enti
 import 'package:pocemon_app/modules/all_pokemons/domain/repository/all_pokemons_repository_impl.dart';
 import 'package:pocemon_app/modules/all_pokemons/presentation/bloc/all_pokemons_bloc.dart';
 import 'package:pocemon_app/modules/all_pokemons/presentation/bloc/all_pokemons_event.dart';
-import 'package:pocemon_app/modules/welcome/widgets/text_menu.dart';
+import 'package:pocemon_app/modules/pokemon_dateils/presentation/cubit/pokemon_details_cubit.dart';
+import 'package:pocemon_app/modules/pokemon_dateils/presentation/pokemon_details_screen.dart';
+import 'package:pocemon_app/modules/welcome/widgets/pokemonball_bg.dart';
+import 'package:pocemon_app/modules/welcome/widgets/menu_pokemons_text.dart';
 
 class AllPokemonsScreen extends StatefulWidget {
   const AllPokemonsScreen(
@@ -42,32 +44,32 @@ class _AllPokemonsScreenState extends State<AllPokemonsScreen> {
           ),
           const CommonBackground(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: CustomScrollView(
               slivers: [
                 const CommonSliverAppbar(),
-                const TextMenu(
-                  text: 'Select your',
-                  fontSize: 34.48,
-                  fontWeight: FontWeight.w300,
+                const SliverToBoxAdapter(
+                  child: Row(children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MenuPokemonsText(
+                              text: 'Select Your',
+                              fontSize: 34.48,
+                              fontWeight: true,
+                            ),
+                            MenuPokemonsText(
+                              text: 'Pokèmon',
+                              fontSize: 45.98,
+                              fontWeight: false,
+                            ),
+                          ]),
+                    ),
+                    PokemonballBg(),
+                  ]),
                 ),
-                const TextMenu(
-                  text: 'Pokèmon',
-                  fontSize: 45.98,
-                  fontWeight: FontWeight.w600,
-                ),
-                // SliverToBoxAdapter(
-                //   child: ElevatedButton(
-                //     onPressed: () {
-                //       //   FetchAllPokemonsUsecase(
-                //       //           repository: AllPokemonsRepositoryImpl(
-                //       //               dio: DioSetting().dio,
-                //       //               mapper: AllPokemonsMapper()))
-                //       //       .execute();
-                //     },
-                //     child: const Text('data'),
-                //   ),
-                // )
                 BlocBuilder<AllPokemonsBloc,
                     CommonBlocState<AllPokemonsEntity>>(
                   builder: (context, state) {
@@ -77,21 +79,40 @@ class _AllPokemonsScreenState extends State<AllPokemonsScreen> {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           mainAxisSpacing: 20,
-                          crossAxisSpacing: 20,
+                          crossAxisSpacing: 16,
                           crossAxisCount: 2,
                         ),
-                        itemBuilder: (context, index) => Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.contColor,
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Center(
-                            child: Text(
-                              state.model?.results?[index].name
-                                      ?.toUpperCase() ??
-                                  '',
-                              style: const TextStyle(
-                                  fontSize: 23, color: Colors.white),
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            context
+                                .read<PokemonDetailsCubit>()
+                                .fetchPokemonDetails(id: index + 1);
+                            // int.parse(state
+                            // .model?.results?[index].url?
+                            //     .split('pokemon')
+                            //     .last
+                            //     .replaceAll('/', '') ?? ''));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const PokemonDetailsScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.mainText,
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: Center(
+                              child: Text(
+                                state.model?.results?[index].name
+                                        ?.toUpperCase() ??
+                                    '',
+                                style: const TextStyle(
+                                    fontSize: 23, color: AppColors.appBarBg),
+                              ),
                             ),
                           ),
                         ),
@@ -113,7 +134,7 @@ class _AllPokemonsScreenState extends State<AllPokemonsScreen> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

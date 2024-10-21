@@ -20,7 +20,7 @@ class WelcomeScreen extends StatelessWidget {
             child: Image.asset(
               AppImages.bgLogo,
               color: AppColors.bgLogo.withOpacity(0.7),
-              scale: 4,
+              scale: 4.2,
             ),
           ),
           const CommonBackground(),
@@ -30,15 +30,10 @@ class WelcomeScreen extends StatelessWidget {
             child: WelcomeImages(),
           ),
           Positioned(
-            bottom: context.height * 0.1,
-            left: context.height * 0.1,
-            right: context.height * 0.1,
-            child: WelcomeButtons(
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text(''),
-              ),
-            ),
+            bottom: context.height * 0.06,
+            left: context.height * 0.09,
+            right: context.height * 0.09,
+            child: const WelcomeButtons(),
           ),
         ],
       ),

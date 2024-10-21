@@ -21,7 +21,7 @@ class CommonBackgroundCircle extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               blurRadius: 100,
-              color: color.withOpacity(0.2),
+              color: color.withOpacity(0.3),
               spreadRadius: radius,
             )
           ]),

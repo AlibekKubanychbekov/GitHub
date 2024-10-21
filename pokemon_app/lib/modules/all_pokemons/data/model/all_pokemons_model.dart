@@ -11,10 +11,9 @@ class AllPokemonsModel {
     next = json['next'];
     previous = json['previous'];
     if (json['results'] != null) {
-      results = <AllPokemonsItemModel>[];
-      json['results'].forEach((v) {
-        results!.add(AllPokemonsItemModel.fromJson(v));
-      });
+      results = (json['results'] as List<dynamic>).map((e) {
+        return AllPokemonsItemModel.fromJson(e);
+      }).toList();
     }
   }
 }
